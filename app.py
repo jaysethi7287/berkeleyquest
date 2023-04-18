@@ -13,14 +13,14 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 DATA_URL = "filt3.csv"
 
 @st.cache_data
-def brewing_magic():
+def blending_wonders():
     df = pd.read_csv(DATA_URL)
     df['embeddings'] = df['embeddings'].apply(ast.literal_eval)
     df['UnitDeranged'] = df['UnitDeranged'].apply(ast.literal_eval)
     return df
 
 @st.cache_data
-def browsing_6000_courses(search_query, df):
+def brewing_magic(search_query, df):
     search_embedding = get_embedding(search_query, engine='text-embedding-ada-002')
     embeddings = np.array(df["embeddings"].tolist())
     similarities = np.dot(embeddings, search_embedding) / (np.linalg.norm(embeddings, axis=1) * np.linalg.norm(search_embedding))
@@ -104,7 +104,7 @@ def main():
     search_query = st.text_input("✨ Search for a course:", placeholder="Music but more techy...", key='search_input')
         
     if search_query:
-        df = brewing_magic()
+        df = blending_wonders()
         
         # Filter by the selected units
         selected_unit_filters = [unit[0] for unit, value in unit_filters.items() if value]
@@ -117,7 +117,7 @@ def main():
         if selected_level_filters:
             df = df[df['DIV'].apply(lambda x: any(val in selected_level_filters for val in x))]
 
-        results = browsing_6000_courses(search_query, df)
+        results = brewing_magic(search_query, df)
         
         for i in range(10): # Always display the first 7 entries
             if i < len(results):
