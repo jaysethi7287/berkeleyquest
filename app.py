@@ -71,7 +71,7 @@ def main():
     st.markdown("<p style='text-align: center; margin-top: -10px; color: #ccc;'>Search your Fall 2023 courses using AI</p>", unsafe_allow_html=True)
 
     with st.expander('Add Filters'):
-        st.write("More filters coming soon")
+        st.write("More filters coming soon 👀")
         st.write('Units:')
         col1, col2, col3, col4, col5 = st.columns(5)
         unit_filters = {
