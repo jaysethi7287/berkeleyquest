@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-DATA_URL = "filt2.csv"
+DATA_URL = "filt3.csv"
 
 @st.cache_data
 def brewing_magic():
@@ -89,13 +89,13 @@ def main():
         st.write("Course Level:")
         col1, col2, col3, col4 = st.columns(4)
         course_level_filters = {
-            '0': False,
+            '99': False,
             '100': False,
             '200': False,
             '300': False,
         }
 
-        course_level_filters['0'] = col1.checkbox('Lower Division', value=course_level_filters['0'])
+        course_level_filters['99'] = col1.checkbox('Lower Division', value=course_level_filters['99'])
         course_level_filters['100'] = col2.checkbox('Upper Division', value=course_level_filters['100'])
         course_level_filters['200'] = col3.checkbox('Graduate', value=course_level_filters['200'])
         course_level_filters['300'] = col4.checkbox('Professional', value=course_level_filters['300'])
