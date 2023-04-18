@@ -68,8 +68,8 @@ def display_result_card(result):
 
 def main():
     st.markdown("<h1 style='text-align: center;'><a href='https://berkeley.streamlit.app/' style='text-decoration: none; color: inherit;'>Berkeley Quest 🚀</a></h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; margin-top: -10px; color: #ccc;'>Search your fall 2023 courses using AI</p>", unsafe_allow_html=True)
-    
+    st.markdown("<p style='text-align: center; margin-top: -10px; color: #ccc;'>Search your Fall 2023 courses using AI</p>", unsafe_allow_html=True)
+
     with st.expander('Add Filters'):
         st.write('Units:')
         col1, col2, col3, col4, col5 = st.columns(5)
@@ -118,12 +118,14 @@ def main():
 
         results = semantic_search(search_query, df)
         
-        for i in range(7): # Always display the first 7 entries
+        for i in range(10): # Always display the first 7 entries
             if i < len(results):
                 display_result_card(results.iloc[i])
 
-    st.markdown("<div style='text-align: center; margin-top: 20px;'><a href='mailto:jayaditya@berkeley.edu?subject=Feedback%20-%20Berkeley%20Quest'>Leave feedback</a></div>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; margin-top: 50px;'>Made with ♥︎ by Jayaditya Sethi</p>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center; margin-top: 5px;'><a href='mailto:jayaditya@berkeley.edu?subject=Feedback%20-%20Berkeley%20Quest'>Leave feedback</a></div>", unsafe_allow_html=True)
+    #st.markdown("<p style='text-align: center; margin-top: 20px; color: #ccc;'>Currently in beta with upcoming features</p>", unsafe_allow_html=True)
+    st.markdown("<hr margintop: 20px>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; margin-top: 25;'>Made with ♥︎ by Jayaditya Sethi</p>", unsafe_allow_html=True)
     st.markdown("<div style='text-align: center; margin-top: 10px;'><a href='https://www.buymeacoffee.com/jaysethi' target='_blank'><img src='https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png' alt='Buy Me A Coffee' width='150' ></a></div>", unsafe_allow_html=True)
 
 
