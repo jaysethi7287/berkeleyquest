@@ -122,7 +122,7 @@ def main():
         for i in range(10): # Always display the first 7 entries
             if i < len(results):
                 display_result_card(results.iloc[i])
-
+    st.markdown("<p style='text-align: center; margin-top: 10px; color: #ccc;'>🚨 If the text is illegible, set the theme to DARK: 3 lines on the top right > settings > theme: dark 🚨</p>", unsafe_allow_html=True)
     st.markdown("<div style='text-align: center; margin-top: 5px;'><a href='mailto:jayaditya@berkeley.edu?subject=Feedback%20-%20Berkeley%20Quest'>Leave feedback</a></div>", unsafe_allow_html=True)
     #st.markdown("<p style='text-align: center; margin-top: 20px; color: #ccc;'>Currently in beta with upcoming features</p>", unsafe_allow_html=True)
     st.markdown("<hr margintop: 20px>", unsafe_allow_html=True)
