@@ -29,7 +29,6 @@ def brewing_magic(search_query, df):
     return df.head(15)
 
 def display_result_card(result):
-
     card_style = """
     <style>
         .card {
@@ -46,21 +45,22 @@ def display_result_card(result):
     class_name = f"{result['Name']}"
     class_code = f"Code: <a href='{result['Class URL']}'>{result['Class Code']}</a>"
     class_id = f"Class ID: {result['Class ID']}"
-    dept = f"Dept: <a href='{result['Department URL']}'>{result['Department']}</a>" if pd.notnull(result['Department URL']) else result['Department']
+    dept_link = f"Dept: <a href='{result['Department URL']}'>{result['Department']}</a>" if pd.notnull(result['Department URL']) else result['Department']
     instruction_mode = f"{result['Instruction Mode']}"
     location = f"Location: <a href='{result['Building URL']}'>{result['Location']}</a>" if pd.notnull(result['Building URL']) else ""
 
     if isinstance(result['Location'], float):
         location = ""
 
-    
     card_content = f"""
-    <div class="card">
-        <h3>{class_name}</h3>
-        <p>{result['Units']} unit{'s' if result['Units'] != "1" else ''}  |  {result['Time']}  |  {result['Meets Days']} | {class_code}</p>
-        <p>{result['Class Description']}</p>
-        <p style='font-size: 14px; color: #ccc;'>{class_id} | {instruction_mode} | {dept} | {location}</p>
-    </div>
+    <a href='{result['Class URL']}' style='text-decoration: none; color: inherit;'>
+        <div class="card">
+            <h3>{class_name}</h3>
+            <p>{result['Units']} unit{'s' if result['Units'] != "1" else ''}  |  {result['Time']}  |  {result['Meets Days']} | {class_code}</p>
+            <p>{result['Class Description']}</p>
+            <p style='font-size: 14px; color: #ccc;'>{class_id} | {instruction_mode} | {dept_link} | {location}</p>
+        </div>
+    </a>
     """
 
     st.markdown(card_style, unsafe_allow_html=True)
