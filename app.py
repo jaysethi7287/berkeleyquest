@@ -13,7 +13,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 DATA_URL = "vectorizedDB.csv"
 
 @st.cache_data
-def load_data():
+def brewing_magic():
     df = pd.read_csv(DATA_URL)
     df['embeddings'] = df['embeddings'].apply(ast.literal_eval)
     df = df.drop_duplicates(subset=['Class Description'], keep='first')
@@ -70,7 +70,7 @@ def main():
     search_query = st.text_input("✨  Search for a course:")
 
     if search_query:
-        df = load_data()
+        df = brewing_magic()
         results = semantic_search(search_query, df)
 
         num_results = 7 # change the number of results to 7
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 # DATA_URL = "vectorizedDB.csv"
 
 # @st.cache_data
-# def load_data():
+# def brewing_magic():
 #     data = blop.download_as_string()
 #     df = pd.read_csv(io.StringIO(data.decode('utf-8')))
 #     df['embeddings'] = df['embeddings'].apply(ast.literal_eval)
@@ -175,7 +175,7 @@ if __name__ == "__main__":
 #     search_query = st.text_input("✨  Search for a course:")
 
 #     if search_query:
-#         df = load_data()
+#         df = brewing_magic()
 #         results = semantic_search(search_query, df)
 
 #         num_results = 7 # change the number of results to 7
