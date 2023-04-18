@@ -10,13 +10,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-DATA_URL = "vectorizedDB.csv"
+DATA_URL = "filt2.csv"
 
 @st.cache_data
 def brewing_magic():
     df = pd.read_csv(DATA_URL)
     df['embeddings'] = df['embeddings'].apply(ast.literal_eval)
-    df = df.drop_duplicates(subset=['Class Description'], keep='first')
+    df['UnitDeranged'] = df['UnitDeranged'].apply(ast.literal_eval)
     return df
 
 @st.cache_data
@@ -29,6 +29,7 @@ def semantic_search(search_query, df):
     return df.head(15)
 
 def display_result_card(result):
+
     card_style = """
     <style>
         .card {
@@ -52,6 +53,7 @@ def display_result_card(result):
     if isinstance(result['Location'], float):
         location = ""
 
+    
     card_content = f"""
     <div class="card">
         <h3>{class_name}</h3>
@@ -66,24 +68,63 @@ def display_result_card(result):
 
 def main():
     st.markdown("<h1 style='text-align: center;'><a href='https://berkeley.streamlit.app/' style='text-decoration: none; color: inherit;'>Berkeley Quest 🚀</a></h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; margin-top: -10px; color: #ccc;'>Search your fall 2023 courses using AI</p>", unsafe_allow_html=True)
+    
+    with st.expander('Add Filters'):
+        st.write('Units:')
+        col1, col2, col3, col4, col5 = st.columns(5)
+        unit_filters = {
+            '1 Unit': False,
+            '2 Units': False,
+            '3 Units': False,
+            '4 Units': False,
+            '5+ Units': False,
+        }
+        unit_filters['1 Unit'] = col1.checkbox('1 Unit', value=unit_filters['1 Unit'])
+        unit_filters['2 Units'] = col2.checkbox('2 Units', value=unit_filters['2 Units'])
+        unit_filters['3 Units'] = col3.checkbox('3 Units', value=unit_filters['3 Units'])
+        unit_filters['4 Units'] = col4.checkbox('4 Units', value=unit_filters['4 Units'])
+        unit_filters['5 Units'] = col5.checkbox('5+ Units', value=unit_filters['5+ Units'])
 
-    search_query = st.text_input("✨  Search for a course:")
+        st.write("Course Level:")
+        col1, col2, col3, col4 = st.columns(4)
+        course_level_filters = {
+            '0': False,
+            '100': False,
+            '200': False,
+            '300': False,
+        }
 
+        course_level_filters['0'] = col1.checkbox('Lower Division', value=course_level_filters['0'])
+        course_level_filters['100'] = col2.checkbox('Upper Division', value=course_level_filters['100'])
+        course_level_filters['200'] = col3.checkbox('Graduate', value=course_level_filters['200'])
+        course_level_filters['300'] = col4.checkbox('Professional', value=course_level_filters['300'])
+        
+    search_query = st.text_input("✨ Search for a course:", placeholder="Physics for data science majors...", key='search_input')
+        
     if search_query:
         df = brewing_magic()
+        
+        # Filter by the selected units
+        selected_unit_filters = [unit[0] for unit, value in unit_filters.items() if value]
+        if selected_unit_filters:
+            df = df[df['UnitDeranged'].apply(lambda x: any(val in selected_unit_filters for val in x))]
+        
+        # Filter by the selected course levels
+        selected_level_filters = [unit[0] for unit, value in course_level_filters.items() if value]
+
+        if selected_level_filters:
+            df = df[df['DIV'].apply(lambda x: any(val in selected_level_filters for val in x))]
+
         results = semantic_search(search_query, df)
-
-        num_results = 7 # change the number of results to 7
-        num_shown = 0
-
-        while num_shown < num_results and num_shown < len(results):
-            display_result_card(results.iloc[num_shown])
-            num_shown += 1
+        
+        for i in range(7): # Always display the first 7 entries
+            if i < len(results):
+                display_result_card(results.iloc[i])
 
     st.markdown("<div style='text-align: center; margin-top: 20px;'><a href='mailto:jayaditya@berkeley.edu?subject=Feedback%20-%20Berkeley%20Quest'>Leave feedback</a></div>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; margin-top: 50px;'>Made with ♥︎ by Jayaditya Sethi</p>", unsafe_allow_html=True)
     st.markdown("<div style='text-align: center; margin-top: 10px;'><a href='https://www.buymeacoffee.com/jaysethi' target='_blank'><img src='https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png' alt='Buy Me A Coffee' width='150' ></a></div>", unsafe_allow_html=True)
-
 
 
 if __name__ == "__main__":
