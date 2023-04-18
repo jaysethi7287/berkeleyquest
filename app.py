@@ -20,7 +20,7 @@ def brewing_magic():
     return df
 
 @st.cache_data
-def semantic_search(search_query, df):
+def browsing_6000_courses(search_query, df):
     search_embedding = get_embedding(search_query, engine='text-embedding-ada-002')
     embeddings = np.array(df["embeddings"].tolist())
     similarities = np.dot(embeddings, search_embedding) / (np.linalg.norm(embeddings, axis=1) * np.linalg.norm(search_embedding))
@@ -117,7 +117,7 @@ def main():
         if selected_level_filters:
             df = df[df['DIV'].apply(lambda x: any(val in selected_level_filters for val in x))]
 
-        results = semantic_search(search_query, df)
+        results = browsing_6000_courses(search_query, df)
         
         for i in range(10): # Always display the first 7 entries
             if i < len(results):
