@@ -14,7 +14,7 @@ DATA_URL = "vectorizedDB.csv"
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv(DATA_URL)
+    df = pd.read_csv(DATA_URL
     df['embeddings'] = df['embeddings'].apply(ast.literal_eval)
     df = df.drop_duplicates(subset=['Class Description'], keep='first')
     return df
