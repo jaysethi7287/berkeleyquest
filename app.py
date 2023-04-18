@@ -67,7 +67,7 @@ def display_result_card(result):
     st.markdown(card_content, unsafe_allow_html=True)
 
 def main():
-    st.markdown("<h1 style='text-align: center;'><a href='https://berkeley.streamlit.app/' style='text-decoration: none; color: inherit;'>Berkeley Quest 🚀</a></h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'><a href='https://berkeley.streamlit.app/' style='text-decoration: none; color: inherit;'>BerkeleyQuest 🚀</a></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; margin-top: -10px; color: #ccc;'>Search your Fall 2023 courses using AI</p>", unsafe_allow_html=True)
 
     with st.expander('Add Filters'):
