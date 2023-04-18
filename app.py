@@ -101,7 +101,7 @@ def main():
         course_level_filters['200'] = col3.checkbox('Graduate', value=course_level_filters['200'])
         course_level_filters['300'] = col4.checkbox('Professional', value=course_level_filters['300'])
         
-    search_query = st.text_input("✨ Search for a course:", placeholder="Physics for data science majors...", key='search_input')
+    search_query = st.text_input("✨ Search for a course:", placeholder="Music but more techy...", key='search_input')
         
     if search_query:
         df = brewing_magic()
