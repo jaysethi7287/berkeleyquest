@@ -126,7 +126,7 @@ def main():
     st.markdown("<div style='text-align: center; margin-top: 5px;'><a href='mailto:jayaditya@berkeley.edu?subject=Feedback%20-%20Berkeley%20Quest'>Leave feedback</a></div>", unsafe_allow_html=True)
     #st.markdown("<p style='text-align: center; margin-top: 20px; color: #ccc;'>Currently in beta with upcoming features</p>", unsafe_allow_html=True)
     st.markdown("<hr margintop: 20px>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; margin-top: 25;'>Made with ♥︎ by Jayaditya Sethi and Ethan Jagoda</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; margin-top: 25;'>Made with ♥︎ by Jayaditya Sethi</p>", unsafe_allow_html=True)
     st.markdown("<div style='text-align: center; margin-top: 10px;'><a href='https://www.buymeacoffee.com/jaysethi' target='_blank'><img src='https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png' alt='Buy Me A Coffee' width='150' ></a></div>", unsafe_allow_html=True)
 
 
